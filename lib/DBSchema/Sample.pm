@@ -24,7 +24,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 	
 );
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 
 # Preloaded methods go here.
@@ -280,18 +280,40 @@ DBSchema::Sample - Sample schema including all common relations
 
 =head1 SYNOPSIS
 
-require 'dbconn.pl'; # or whatever you use to get DBI database handles
-use DBI;
-use strict;
-use DBSchema::Sample;
-
-my $dbh = dbh();
-my $sql = DBSchema::Sample->sql;
-
-for (@$sql) {
-    warn $_;
-    $dbh->do($_);
-}
+ #=====================================================================
+ # DECLARATIONS
+ #=====================================================================
+ use strict;
+ use DBSchema::Sample;
+ 
+ my $dbh = dbh();
+ my $sql = DBSchema::Sample->sql;
+ 
+ #=====================================================================
+ #  PROGRAM PROPER
+ #=====================================================================
+ 
+ 
+ for (@$sql) {
+     warn $_;
+     $dbh->do($_); 
+ }
+ 
+ 
+ #=====================================================================
+ #  SUBROUTINES
+ #=====================================================================
+ 
+ #
+ # modify for your method of getting $dbh (DBI database handles)
+ #
+ 
+ sub dbh {
+     use DBIx::Connect;
+ 
+     my $dbh = DBIx::Connect->to('horse1_test');
+ 
+ }
 
 
 =head1 DESCRIPTION

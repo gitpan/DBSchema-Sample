@@ -2,5 +2,6 @@ Changes
 Makefile.PL
 MANIFEST
 README
-lib/DBSChema/Sample.pm
+lib/DBSchema/Sample.pm
+scripts/load-db.pl
 test.pl
