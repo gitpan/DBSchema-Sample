@@ -24,7 +24,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 	
 );
-our $VERSION = '0.05';
+our $VERSION = '0.07';
 
 
 # Preloaded methods go here.
@@ -325,6 +325,16 @@ play around with a DBI wrapper (or 12) but don't feel like creating a realistic
 schema and populating it with sensible data.
 
 Tested on MySQL 4.0.14. Subclasses for other databases welcome.
+
+=head1 PREREQUISITES
+
+It is assumed that you have done a 
+
+ CREATE DATABASE db_name
+
+And that the C<$dbh> that you use will be connecting to that created database.
+
+This almost goes without saying, but it never helps to be complete.
 
 =head2 EXPORT
 
