@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.3';
+our $VERSION = '1.4';
 
 
 # Preloaded methods go here.
@@ -255,7 +255,7 @@ This program builds and populates a small but realistic database.
 
 =item * Install whatever database you want
 
-MySQL 4.0.14 and SQLite 2.8.6 have been tested
+Postgres 7.4, MySQL 4.0.14 and SQLite 2.8.6 have been tested
 
 =item * Create a database
 
