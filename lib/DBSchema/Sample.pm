@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 
 
 # Preloaded methods go here.
@@ -241,7 +241,6 @@ __END__
 =head1 NAME
 
 DBSchema::Sample - build and populate a realistic sample schema.
-
 
 =head1 SYNOPSIS
 

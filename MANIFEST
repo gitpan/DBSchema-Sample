@@ -6,3 +6,4 @@ lib/DBSchema/Sample/Default.pm
 lib/DBSchema/Sample/SQLite.pm
 scripts/load-db.pl
 test.pl
+META.yml                                Module meta-data (added by MakeMaker)
