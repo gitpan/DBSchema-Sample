@@ -27,7 +27,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.7';
+our $VERSION = '1.8';
 
 
 # Preloaded methods go here.
@@ -153,7 +153,7 @@ sub load {
   print "We need an existing datasource for each\n" ;
   print "DBD driver to populate the database.\n" ;
   print "Please enter a valid datasource (or accept the default) for each DBD driver\n" ;
-  print "or enter a '.' if you do not want to test DBIx::Recordset against this driver\n" ;
+  print "or enter a '.' if you do not want to load the sample schema using this driver\n" ;
   print "\n" ;
 
   $i = 1 ;
