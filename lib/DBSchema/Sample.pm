@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '0.09';
+our $VERSION = '1.1';
 
 
 # Preloaded methods go here.
@@ -265,11 +265,11 @@ For SQLite, this step is not necessary.
 
 =item * Install appropriate DBD
 
-DBD::SQLite and DBD::MySQL have been tested
+DBD::SQLite and DBD::mysql have been tested
 
 =item * Install DBSchema::Sample
 
-When it follows the prereqs, it installs L<DBIx::AnyDBD>.
+When it follows the prereqs, it installs L<DBIx::AnyDBD|DBIx::AnyDBD>.
 
 =item * Load the Database
 
