@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.2';
+our $VERSION = '1.3';
 
 
 # Preloaded methods go here.
@@ -112,7 +112,7 @@ sub load {
     eval "use $prereq" ;
 
     die "\nPlease install $prereq before installing DBSchema::Sample" if ($@) ;
-    my $v = "$prereq::VERSION";
+    my $v = $prereq->VERSION;
     my $v2 = eval $v;
     print "Found $prereq version $v2\n" ;
 
@@ -191,6 +191,9 @@ sub load {
       next unless GetYesNo (" > ", "");
 
       my $app_handle = app_handle($drivers{$D});  
+
+      use Data::Dumper;
+      warn Dumper($app_handle);
 
       my $sql = $app_handle->sql;
 

@@ -1,4 +1,4 @@
-package DBSchema::Sample::Default;
+package DBSchema::Sample::Pg;
 
 use 5.006;
 use strict;
@@ -32,20 +32,25 @@ our $VERSION = '0.07';
 # -----------------------------------------------------------------
 # author inserts
 # -----------------------------------------------------------------
-my $sql;
-while ( <DATA>) {
-    last if /__END__/;
-    $sql .= $_;
-}
-my @sql = split ';', $sql;
+
+
 
 sub sql {
 
-  warn "we are in __PACKAGE__";
+#    warn " *** in __PACKAGE__ ***";
+
+    my $sql;
+    while ( <DATA>) {
+	last if /__END__/;
+	$sql .= $_;
+    }
+
+    my @sql = split ';', $sql;
 
     \@sql;
 
 }
+
 
 1;
 __DATA__
@@ -54,10 +59,10 @@ create table authors	(
        phone char(12) null,	address varchar(40) null,	city varchar(20) null,	state char(2) null,	zip char(5) null);
 create table publishers	(pub_id char(4) not null,	pub_name varchar(40) null,	address varchar(40) null,	city varchar(20) null,	state char(2) null);
 create table roysched	(title_id char(6) not null,	lorange int null,	hirange int null,	royalty dec(5,2) null);
-create table titleauthors	(au_id char(11) not null,	title_id char(6) not null,	au_ord tinyint null,	royaltyshare dec(5,2) null);
-create table titles	(title_id char(6) not null,	title varchar(80) not null,	type char(12) null,	pub_id char(4) null,	price numeric(8,2) null,	advance numeric(10,2) null,	ytd_sales int null,	contract bit not null,	notes varchar(200) null,	pubdate date null);
+create table titleauthors	(au_id char(11) not null,	title_id char(6) not null,	au_ord int null,	royaltyshare dec(5,2) null);
+create table titles	(title_id char(6) not null,	title varchar(80) not null,	type char(12) null,	pub_id char(4) null,	price numeric(8,2) null,	advance numeric(10,2) null,	ytd_sales int null,	contract int not null,	notes varchar(200) null,	pubdate date null);
 create table editors	(ed_id char(11) not null,	ed_lname varchar(40) not null,	ed_fname varchar(20) not null,	ed_pos varchar(12) null,	phone char(12) null,	address varchar(40) null,	city varchar(20) null,	state char(2) null,	zip char(5) null,	ed_boss char(11) null );
-create table titleditors	(ed_id char(11) not null,	title_id char(6) not null,	ed_ord tinyint null);
+create table titleditors	(ed_id char(11) not null,	title_id char(6) not null,	ed_ord int null);
 create table sales	(sonum int not null,	stor_id char(4) not null,	ponum varchar(20) not null,	sdate date null);
 create table salesdetails	(sonum int not null,	qty_ordered smallint not null,	qty_shipped smallint null,	title_id char(6) not null,	date_shipped date null);
 create unique index auidind on authors (au_id);
@@ -97,81 +102,81 @@ insert into authors values('341-22-1782', 'Smith', 'Meander','913 843-0462', '10
 insert into publishers values('0736', 'New Age Books', '1 1st St','Boston', 'MA');
 insert into publishers values('0877', 'Binnet & Hardley','2 2nd Ave.', 'Washington', 'DC');
 insert into publishers values('1389', 'Algodata Infosystems', '3 3rd Dr.','Berkeley', 'CA');
-insert into roysched values('BU1032', 0, 5000, 0.10);
-insert into roysched values('BU1032', 5001, 50000, 0.12);
-insert into roysched values('PC1035', 0, 2000, 0.10);
-insert into roysched values('PC1035', 2001, 4000, 0.12);
-insert into roysched values('PC1035', 4001, 50000, 0.16);
-insert into roysched values('BU2075', 0, 1000, 0.10);
-insert into roysched values('BU2075', 1001, 5000, 0.12);
-insert into roysched values('BU2075', 5001, 7000, 0.16);
-insert into roysched values('BU2075', 7001, 50000, 0.18);
-insert into roysched values('PS9999', 0, 50000, 0.10);
-insert into roysched values('PS2091', 0, 1000, 0.10);
-insert into roysched values('PS2091', 1001, 5000, 0.12);
-insert into roysched values('PS2091', 5001, 50000, 0.14);
-insert into roysched values('PS2106', 0, 2000, 0.10);
-insert into roysched values('PS2106', 2001, 5000, 0.12);
-insert into roysched values('PS2106', 5001, 50000, 0.14);
-insert into roysched values('MC3021', 0, 1000, 0.10);
-insert into roysched values('MC3021', 1001, 2000, 0.12);
-insert into roysched values('MC3021', 2001, 6000, 0.14);
-insert into roysched values('MC3021', 6001, 8000, 0.18);
-insert into roysched values('MC3021', 8001, 50000, 0.20);
-insert into roysched values('TC3218', 0, 2000, 0.10);
-insert into roysched values('TC3218', 2001, 6000, 0.12);
-insert into roysched values('TC3218', 6001, 8000, 0.16);
-insert into roysched values('TC3218', 8001, 50000, 0.16);
-insert into roysched values('PC8888', 0, 5000, 0.10);
-insert into roysched values('PC8888', 5001, 50000, 0.12);
-insert into roysched values('PS7777', 0, 5000, 0.10);
-insert into roysched values('PS7777', 5001, 50000, 0.12);
-insert into roysched values('PS3333', 0, 5000, 0.10);
-insert into roysched values('PS3333', 5001, 50000, 0.12);
-insert into roysched values('MC3026', 0, 1000, 0.10);
-insert into roysched values('MC3026',1001, 2000, 0.12);
-insert into roysched values('MC3026', 2001, 6000, 0.14);
-insert into roysched values('MC3026', 6001, 8000, 0.18);
-insert into roysched values('MC3026', 8001, 50000, 0.20);
-insert into roysched values('BU1111', 0, 4000, 0.10);
-insert into roysched values('BU1111', 4001, 8000, 0.12);
-insert into roysched values('BU1111', 8001, 50000, 0.14);
-insert into roysched values('MC2222', 0, 2000, 0.10);
-insert into roysched values('MC2222', 2001, 4000, 0.12);
-insert into roysched values('MC2222', 4001, 8000, 0.14);
-insert into roysched values('MC2222', 8001, 12000, 0.16);
-insert into roysched values('TC7777', 0, 5000, 0.10);
-insert into roysched values('TC7777', 5001, 15000, 0.12);
-insert into roysched values('TC4203', 0, 2000, 0.10);
-insert into roysched values('TC4203', 2001, 8000, 0.12);
-insert into roysched values('TC4203', 8001, 16000, 0.14);
-insert into roysched values('BU7832', 0, 5000, 0.10);
-insert into roysched values('BU7832', 5001, 50000, 0.12);
-insert into roysched values('PS1372', 0, 50000, 0.10);
-insert into titleauthors values('409-56-7008', 'BU1032', 1, 0.60);
+insert into roysched values('BU1032', 0, 5000, .10);
+insert into roysched values('BU1032', 5001, 50000, .12);
+insert into roysched values('PC1035', 0, 2000, .10);
+insert into roysched values('PC1035', 2001, 4000, .12);
+insert into roysched values('PC1035', 4001, 50000, .16);
+insert into roysched values('BU2075', 0, 1000, .10);
+insert into roysched values('BU2075', 1001, 5000, .12);
+insert into roysched values('BU2075', 5001, 7000, .16);
+insert into roysched values('BU2075', 7001, 50000, .18);
+insert into roysched values('PS9999', 0, 50000, .10);
+insert into roysched values('PS2091', 0, 1000, .10);
+insert into roysched values('PS2091', 1001, 5000, .12);
+insert into roysched values('PS2091', 5001, 50000, .14);
+insert into roysched values('PS2106', 0, 2000, .10);
+insert into roysched values('PS2106', 2001, 5000, .12);
+insert into roysched values('PS2106', 5001, 50000, .14);
+insert into roysched values('MC3021', 0, 1000, .10);
+insert into roysched values('MC3021', 1001, 2000, .12);
+insert into roysched values('MC3021', 2001, 6000, .14);
+insert into roysched values('MC3021', 6001, 8000, .18);
+insert into roysched values('MC3021', 8001, 50000, .20);
+insert into roysched values('TC3218', 0, 2000, .10);
+insert into roysched values('TC3218', 2001, 6000, .12);
+insert into roysched values('TC3218', 6001, 8000, .16);
+insert into roysched values('TC3218', 8001, 50000, .16);
+insert into roysched values('PC8888', 0, 5000, .10);
+insert into roysched values('PC8888', 5001, 50000, .12);
+insert into roysched values('PS7777', 0, 5000, .10);
+insert into roysched values('PS7777', 5001, 50000, .12);
+insert into roysched values('PS3333', 0, 5000, .10);
+insert into roysched values('PS3333', 5001, 50000, .12);
+insert into roysched values('MC3026', 0, 1000, .10);
+insert into roysched values('MC3026',1001, 2000, .12);
+insert into roysched values('MC3026', 2001, 6000, .14);
+insert into roysched values('MC3026', 6001, 8000, .18);
+insert into roysched values('MC3026', 8001, 50000, .20);
+insert into roysched values('BU1111', 0, 4000, .10);
+insert into roysched values('BU1111', 4001, 8000, .12);
+insert into roysched values('BU1111', 8001, 50000, .14);
+insert into roysched values('MC2222', 0, 2000, .10);
+insert into roysched values('MC2222', 2001, 4000, .12);
+insert into roysched values('MC2222', 4001, 8000, .14);
+insert into roysched values('MC2222', 8001, 12000, .16);
+insert into roysched values('TC7777', 0, 5000, .10);
+insert into roysched values('TC7777', 5001, 15000, .12);
+insert into roysched values('TC4203', 0, 2000, .10);
+insert into roysched values('TC4203', 2001, 8000, .12);
+insert into roysched values('TC4203', 8001, 16000, .14);
+insert into roysched values('BU7832', 0, 5000, .10);
+insert into roysched values('BU7832', 5001, 50000, .12);
+insert into roysched values('PS1372', 0, 50000, .10);
+insert into titleauthors values('409-56-7008', 'BU1032', 1, .60);
 insert into titleauthors values('486-29-1786', 'PS7777', 1, 1.00);
 insert into titleauthors values('486-29-1786', 'PC9999', 1, 1.00);
 insert into titleauthors values('712-45-1867', 'MC2222', 1, 1.00);
 insert into titleauthors values('172-32-1176', 'PS3333', 1, 1.00);
-insert into titleauthors values('213-46-8915', 'BU1032', 2, 0.40);
+insert into titleauthors values('213-46-8915', 'BU1032', 2, .40);
 insert into titleauthors values('238-95-7766', 'PC1035', 1, 1.00);
 insert into titleauthors values('213-46-8915', 'BU2075', 1, 1.00);
-insert into titleauthors values('998-72-3567', 'PS2091', 1, 0.50);
-insert into titleauthors values('899-46-2035', 'PS2091', 2, 0.50);
+insert into titleauthors values('998-72-3567', 'PS2091', 1, .50);
+insert into titleauthors values('899-46-2035', 'PS2091', 2, .50);
 insert into titleauthors values('998-72-3567', 'PS2106', 1, 1.00);
-insert into titleauthors values('722-51-5454', 'MC3021', 1, 0.75);
-insert into titleauthors values('899-46-2035', 'MC3021', 2, 0.25);
+insert into titleauthors values('722-51-5454', 'MC3021', 1, .75);
+insert into titleauthors values('899-46-2035', 'MC3021', 2, .25);
 insert into titleauthors values('807-91-6654', 'TC3218', 1, 1.00);
 insert into titleauthors values('274-80-9391', 'BU7832', 1, 1.00);
-insert into titleauthors values('427-17-2319', 'PC8888', 1, 0.50);
-insert into titleauthors values('846-92-7186', 'PC8888', 2, 0.50);
-insert into titleauthors values('756-30-7391', 'PS1372', 1, 0.75);
-insert into titleauthors values('724-80-9391', 'PS1372', 2, 0.25);
-insert into titleauthors values('724-80-9391', 'BU1111', 1, 0.60);
-insert into titleauthors values('267-41-2394', 'BU1111', 2, 0.40);
-insert into titleauthors values('672-71-3249', 'TC7777', 1, 0.40);
-insert into titleauthors values('267-41-2394', 'TC7777', 2, 0.30);
-insert into titleauthors values('472-27-2349', 'TC7777', 3, 0.30);
+insert into titleauthors values('427-17-2319', 'PC8888', 1, .50);
+insert into titleauthors values('846-92-7186', 'PC8888', 2, .50);
+insert into titleauthors values('756-30-7391', 'PS1372', 1, .75);
+insert into titleauthors values('724-80-9391', 'PS1372', 2, .25);
+insert into titleauthors values('724-80-9391', 'BU1111', 1, .60);
+insert into titleauthors values('267-41-2394', 'BU1111', 2, .40);
+insert into titleauthors values('672-71-3249', 'TC7777', 1, .40);
+insert into titleauthors values('267-41-2394', 'TC7777', 2, .30);
+insert into titleauthors values('472-27-2349', 'TC7777', 3, .30);
 insert into titleauthors values('648-92-1872', 'TC4203', 1, 1.00);
 insert into titles values ('PC8888', 'Secrets of Silicon Valley','popular_comp', '1389', 40.00, 8000.00, 4095,1,'Muckraking reporting on the world''s largest computer hardware and software manufacturers.','06/12/1998');
 insert into titles values ('BU1032', 'The Busy Executive''s Database Guide','business', '1389', 29.99, 5000.00, 4095, 1,'An overview of available database systems with emphasis on common business applications.  Illustrated.','06/12/1998');
@@ -277,14 +282,14 @@ __END__
 
 =head1 NAME
 
-DBSchema::Sample::SQLite - SQLite class for DBSchema::Sample;
+DBSchema::Sample::Pg - Postgresql DBSchema::Sample class
+
+=head2 EXPORT
+
+None by default.
 
 =head1 AUTHOR
 
 T. M. Brannon, tbone@cpan.org
-
-=head1 SEE ALSO
-
-L<perl>.
 
 =cut

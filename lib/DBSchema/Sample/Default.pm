@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+use Carp qw(cluck);
+
 require Exporter;
 
 our @ISA = qw(Exporter);
@@ -32,12 +34,8 @@ our $VERSION = '0.07';
 # -----------------------------------------------------------------
 # author inserts
 # -----------------------------------------------------------------
-my $sql;
-while ( <DATA>) {
-    last if /__END__/;
-    $sql .= $_;
-}
-my @sql = split ';', $sql;
+
+#cluck " *** __PACKAGE__ ***";
 
 sub sql {
 
@@ -275,105 +273,14 @@ __END__
 
 =head1 NAME
 
-DBSchema::Sample - Sample schema including all common relations
-
-
-=head1 SYNOPSIS
-
- #=====================================================================
- # DECLARATIONS
- #=====================================================================
- use strict;
- use DBSchema::Sample;
- 
- my $dbh = dbh();
- my $sql = DBSchema::Sample->sql;
- 
- #=====================================================================
- #  PROGRAM PROPER
- #=====================================================================
- 
- 
- for (@$sql) {
-     warn $_;
-     $dbh->do($_); 
- }
- 
- 
- #=====================================================================
- #  SUBROUTINES
- #=====================================================================
- 
- #
- # modify for your method of getting $dbh (DBI database handles)
- #
- 
- sub dbh {
-     use DBIx::Connect;
- 
-     my $dbh = DBIx::Connect->to('horse1_test');
- 
- }
-
-
-=head1 DESCRIPTION
-
-This creates the database schema discussed in "The Practical SQL Handbook by Bowman, 
-Emerson and Darnovsky" (Addison-Wesley). It is useful to have something like 
-this when you want to
-play around with a DBI wrapper (or 12) but don't feel like creating a realistic
-schema and populating it with sensible data.
-
-Tested on MySQL 4.0.14. Subclasses for other databases welcome.
-
-=head1 PREREQUISITES
-
-It is assumed that you have done a 
-
- CREATE DATABASE db_name
-
-And that the C<$dbh> that you use will be connecting to that created database.
-
-This almost goes without saying, but it never helps to be complete.
+DBSchema::Sample::Default - base class for DBSchema::Sample
 
 =head2 EXPORT
 
 None by default.
 
-=head1 SCHEMA DESCRIPTON
-
-=head2 authors =1:n=> titleauthors
-
-=head2 titles  =1:n=> titleauthors
-
-=head3 Therefore authors =n:n=> titles
-
-
-
-=head2 titles  =1:n=> titleditors
-
-=head2 editors =1:n=> titleditors
-
-=head3 Therefore editors =n:n=> titles
-
-=head2 titles  =1:n=> roysched
-
-At first, I didn't understand how a title could have more
-than one royalty, then I realized that a title has
-varying royalties based on the total volume sold.
-
-=head2 publishers =1:n=> titles
-
-=head2 titles     =1:n=> salesdetails
-
-=head2 sales      =1:n=> salesdetails
-
 =head1 AUTHOR
 
 T. M. Brannon, tbone@cpan.org
-
-=head1 SEE ALSO
-
-L<perl>.
 
 =cut
