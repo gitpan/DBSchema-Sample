@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.5';
+our $VERSION = '1.6';
 
 
 # Preloaded methods go here.
@@ -300,7 +300,15 @@ creating a realistic schema and populating it with sensible data.
 
  load()
 
-=head1 SCHEMA DESCRIPTON
+=head1 SCHEMA DESCRIPTION
+
+=begin html
+
+<img src=http://dbschema-sample.berlios.de/schema.jpg>
+
+=end   html
+
+
 
 =head2 authors =1:n=> titleauthors
 
@@ -328,6 +336,12 @@ varying royalties based on the total volume sold.
 =head2 sales      =1:n=> salesdetails
 
 =head3 Therefore titles =n:n=> sales
+
+=head1 SUPPORT
+
+Development and support of this module is handled at
+
+L<http://dbschema-sample.berlios.de>
 
 =head1 AUTHOR
 
