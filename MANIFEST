@@ -3,5 +3,7 @@ Makefile.PL
 MANIFEST
 README
 lib/DBSchema/Sample.pm
+lib/DBSchema/Sample/Default.pm
+lib/DBSchema/Sample/SQLite.pm
 scripts/load-db.pl
 test.pl
