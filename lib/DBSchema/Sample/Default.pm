@@ -39,6 +39,16 @@ our $VERSION = '0.07';
 
 sub sql {
 
+#    warn " *** in __PACKAGE__ ***";
+
+    my $sql;
+    while ( <DATA>) {
+	last if /__END__/;
+	$sql .= $_;
+    }
+
+    my @sql = split ';', $sql;
+
     \@sql;
 
 }

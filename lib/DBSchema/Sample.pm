@@ -26,7 +26,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(load
 	
 );
-our $VERSION = '1.4';
+our $VERSION = '1.5';
 
 
 # Preloaded methods go here.
