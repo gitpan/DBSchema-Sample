@@ -6,8 +6,9 @@
 use strict;
 use DBSchema::Sample;
 
-my $dbh = dbh();
-my $sql = DBSchema::Sample->sql;
+my $app_handle = app_handle();
+
+my $sql = $app_handle->sql;
 
 #=====================================================================
 #  PROGRAM PROPER
@@ -16,7 +17,7 @@ my $sql = DBSchema::Sample->sql;
 
 for (@$sql) {
     warn $_;
-    $dbh->do($_); 
+    $app_handle->get_dbh->do($_); 
 }
 
 
@@ -28,10 +29,20 @@ for (@$sql) {
 # modify for your method of getting $dbh (DBI database handles)
 #
 
-sub dbh {
-    use DBIx::Connect;
+sub app_handle {
 
-    my $dbh = DBIx::Connect->to('horse1_test');
+  my ($user, $pass);
+  my $attr = { RaiseError => 1, PrintError => 1 } ;
+  my $class = 'DBSchema::Sample' ;
+
+  DBIx::AnyDBD->connect
+	(
+	 'dbi:SQLite:test', 
+	 $user,
+	 $pass,
+	 $attr,
+	 $class # The one difference between DBI and DBIx::AnyDBD
+	);
 
 }
 
