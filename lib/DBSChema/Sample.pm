@@ -24,7 +24,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw(
 	
 );
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 # Preloaded methods go here.
@@ -308,6 +308,33 @@ Tested on MySQL 4.0.14. Subclasses for other databases welcome.
 
 None by default.
 
+=head1 SCHEMA DESCRIPTON
+
+=head2 authors =1:n=> titleauthors
+
+=head2 titles  =1:n=> titleauthors
+
+=head3 Therefore authors =n:n=> titles
+
+
+
+=head2 titles  =1:n=> titleditors
+
+=head2 editors =1:n=> titleditors
+
+=head3 Therefore editors =n:n=> titles
+
+=head2 titles  =1:n=> roysched
+
+At first, I didn't understand how a title could have more
+than one royalty, then I realized that a title has
+varying royalties based on the total volume sold.
+
+=head2 publishers =1:n=> titles
+
+=head2 titles     =1:n=> salesdetails
+
+=head2 sales      =1:n=> salesdetails
 
 =head1 AUTHOR
 
